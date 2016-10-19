@@ -1,34 +1,27 @@
 # -*- coding: utf-8 -*-
+from app import login_manager, db
 import flask_login
-from app import login_manager
 
 
-users = {'foo@bar.tld': {'pwd': 'secret'}}
+class User(flask_login.UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    phone = db.Column(db.String(12), unique=True)
+    password = db.Column(db.String(20))
+    voice_id = db.Column(db.String(100), unique=True)
 
+    @property
+    def is_authenticated(self):
+        return True
 
-class User(flask_login.UserMixin):
-    pass
+    @property
+    def is_active(self):
+        return True
 
+    @property
+    def is_anonymous(self):
+        return False
 
-@login_manager.user_loader
-def user_loader(email):
-    if email not in users:
-        return
+    def get_id(self):
+        return unicode(self.id)
 
-    user = User()
-    user.id = email
-    return user
-
-
-@login_manager.request_loader
-def request_loader(request):
-    email = request.form.get('email')
-    if email not in users:
-        return
-
-    user = User()
-    user.id = email
-
-    user.is_authenticated = request.form['pwd'] == users[email]['pw']
-
-    return user

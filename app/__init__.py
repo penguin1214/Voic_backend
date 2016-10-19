@@ -18,5 +18,7 @@ login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
 db = SQLAlchemy(app, use_native_unicode="utf8")
+# import models
+# db.create_all()
 
 from app import views
