@@ -4,6 +4,7 @@ import flask_login
 from flask import request, render_template, redirect, url_for
 from app import app, db, login_manager
 from models import *
+from utility import *
 
 
 @login_manager.user_loader
@@ -34,14 +35,14 @@ def login():
     else:
         data = request.form
         phone = data['phone']
-        password = data['password']
+        password = md5_string(data["password"])
         user = db.session.query(User).filter(User.phone == phone).first()
         if user:
             if user.password == password:
                 flask_login.login_user(user)
                 return redirect(url_for('protected'))
-        else:
-            return 'error'
+            else:
+                return 'error'
 
 
 @app.route('/protected')
