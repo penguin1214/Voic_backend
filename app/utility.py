@@ -3,8 +3,8 @@
 from hashlib import *
 import os, time
 
-def genToken(phone, password):
-    token = sha1(phone+password+str(int(time.time()))).hexdigest()
+def genToken(phone):
+    token = sha1(phone+str(int(time.time()))).hexdigest()
     return token
 
 

@@ -2,7 +2,8 @@
 
 import flask_login
 from flask import request, render_template, redirect, url_for
-from app import app, db, login_manager
+from app import app, db, login_manager, socketio
+from flask_socketio import emit
 from models import *
 from utility import *
 
@@ -55,4 +56,8 @@ def protected():
 def logout():
     flask_login.logout_user()
     return 'Logged out'
+
+# @socketio.on('connect', namespace='/test')
+# def test_connect():
+#     emit('my response', {'data': 'Connected'})
 
