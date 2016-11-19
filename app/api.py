@@ -76,7 +76,7 @@ class ApiAddDevice(Resource):
         color_stat_pair = data["color_stat_pair"]
         device = Device(user_id, title, img_res_string, current_stat, color_stat_pair)
         db.session.add(device)
-        db.flush()
+        db.session.flush()
         # 是否可以获取设备id
         device_id = device.id
         db.session.commit()
