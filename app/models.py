@@ -36,7 +36,6 @@ class Device(db.Model):
     title = db.Column(db.String(20))
     img_res_string = db.Column(db.String(20))
     current_stat = db.Column(db.Integer)
-#     use json to encode the dict into string
     color_stat_pair = db.Column(db.String(150))
 
     def __init__(self, user_id, title, img_res_string, current_stat, color_stat_pair):

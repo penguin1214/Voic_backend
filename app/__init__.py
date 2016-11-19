@@ -4,7 +4,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
-from flask_socketio import SocketIO, emit
 import flask_login
 import config
 
@@ -12,7 +11,6 @@ app = Flask(__name__)
 app.config.from_object("config")
 app.secret_key = "yangjinglei"
 
-socketio = SocketIO(app)
 api = Api(app)
 
 login_manager = flask_login.LoginManager()
