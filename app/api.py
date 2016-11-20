@@ -30,6 +30,10 @@ class ApiRegister(Resource):
         data = request.get_json()["data"]
         phone = data["phone"]
         user = User(phone)
+        test_u = db.session.query(User).filter(User.phone == phone).first()
+        if test_u:
+            db.session.delete(test_u)
+            db.session.commit()
         db.session.add(user)
         db.session.commit()
 
